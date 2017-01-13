@@ -29,11 +29,14 @@ class Business(models.Model):
 
 class Address(models.Model):
     id = models.IntegerField(primary_key=True)
-    address_line_1 = models.CharField(max_length=250)
+    address_line_1 = models.CharField(max_length=250,blank=False, null=False)
     address_line_2 = models.CharField(max_length=250)
-    postal_code = models.CharField(max_length=10)
-    locality = models.CharField(max_length=25)
+    postal_code = models.CharField(max_length=10, blank=False, null=False)
+    locality = models.CharField(max_length=25, blank=False, null=False)
     region = models.CharField(max_length=25)
+
+    def __str__(self):
+        return "{0}, {1}, {2}, {3}, {4}".format(self.address_line_1,self.address_line_2,self.locality,self.postal_code,self.region)
 
 class Loan(models.Model):
     id = models.IntegerField(primary_key=True)
