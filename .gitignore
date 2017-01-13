@@ -60,3 +60,5 @@ target/
 db.sqlite
 db.sqlite3
 
+# Migrations
+main/migrations/*
