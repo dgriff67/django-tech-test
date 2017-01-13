@@ -46,6 +46,8 @@ INSTALLED_APPS = (
 
 SITE_ID = 1
 
+LOGIN_REDIRECT_URL = '/profile/'
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
