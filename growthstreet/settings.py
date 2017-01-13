@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.linkedin',
-    'main',
+    'main.apps.MainConfig',
 )
 
 SITE_ID = 1
