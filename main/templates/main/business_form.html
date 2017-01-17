@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Business Details</title>
+</head>
+<body>
+    <h3>Business Details</h3>
+        <form role="form" action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="contact" value={{ request.user.id }}>
+            <input type="hidden" name="registered_address" value={{ address_id }}>
+            <p><label for="id_company_number">Company Number:</label>
+            <input id="id_company_number" type="text" name="company_number" value="">
+            <p><label for="id_business_sector">Business Sector:</label>
+            <select id="id_business_sector" name="business_sector">
+                <option selected='selected' value="Re" />Retail<option>
+                <option value="Pr" />Professional Services</option>
+                <option value="Fo" />Food And Drink</option>
+                <option value="En" />Entertainment</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+</body>
+</html>

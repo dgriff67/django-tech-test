@@ -65,7 +65,7 @@ ROOT_URLCONF = 'growthstreet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/david/dev/django-tech-test/django-tech-test/main/templates/main/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

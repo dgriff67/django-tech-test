@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 class Business(models.Model):
-    id = models.IntegerField(primary_key=True)
     contact = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -28,7 +27,6 @@ class Business(models.Model):
     )
 
 class Address(models.Model):
-    id = models.IntegerField(primary_key=True)
     address_line_1 = models.CharField(max_length=250,blank=False, null=False)
     address_line_2 = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=10, blank=False, null=False)
@@ -39,7 +37,6 @@ class Address(models.Model):
         return "{0}, {1}, {2}, {3}, {4}".format(self.address_line_1,self.address_line_2,self.locality,self.postal_code,self.region)
 
 class Loan(models.Model):
-    id = models.IntegerField(primary_key=True)
     business = models.ForeignKey('Business', on_delete=models.CASCADE)
     amount = models.IntegerField(blank=False, null=False)
     length = models.IntegerField(blank=False,null=False)
