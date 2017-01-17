@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'customer',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -70,6 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'growthstreet.wsgi.application'
 
+AUTH_USER_MODEL = 'customer.Customer'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
