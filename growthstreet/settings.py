@@ -88,6 +88,7 @@ AUTHENTICATION_BACKENDS = (
 )
 # For allauth
 SITE_ID = 1
+LOGIN_REDIRECT_URL = '/profile/'
 
 WSGI_APPLICATION = 'growthstreet.wsgi.application'
 
