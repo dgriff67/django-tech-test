@@ -3,5 +3,15 @@
 <body>
 <h2>Welcome {{current_customer.username}}</h2>
 <h3>{% if current_customer.company %} {{current_customer.company}} {% else %} Please enter company details {% endif %}</h3>
+<form method="post">{% csrf_token %}
+    <div>
+        <input type="search" id="q" placeholder="Enter company number" name="q" value="">
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+
+
+</form>
 </body>
 </html>
