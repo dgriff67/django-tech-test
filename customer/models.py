@@ -37,3 +37,6 @@ class Company(models.Model):
         max_length=8, null=True, blank=True,
     )
     verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{0} - {1}, {2}, {3}, {4}, {5}".format(self.registered_company_number, self.name, self.address_line_1, self.address_line_2, self.locality, self.postal_code)
