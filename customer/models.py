@@ -28,6 +28,7 @@ class Company(models.Model):
     )
 
     name = models.CharField(max_length=200, null=True)
+    premises = models.CharField(max_length=200, null=True)
     address_line_1 = models.CharField(max_length=200, null=True)
     address_line_2 = models.CharField(max_length=200, null=True)
     country = models.CharField(max_length=200, null=True)
