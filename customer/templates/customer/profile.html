@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 <h2>Welcome {{current_customer.username}}</h2>
-<h3>{% if current_customer.company %} {{current_customer.company}} {% else %} Please enter company details {% endif %}</h3>
+<h3>{% if current_customer.company %} {{current_customer.company}} {% else %} Please enter company details </h3>
 <form method="get" action=''>
     <div>
         <input type="search" id="q" placeholder="Enter company number" name="q" value="">
@@ -25,5 +25,6 @@
                 <button type="submit">Confirm</button>
             </div>
         </form>
+        {% endif %}
 </body>
 </html>
