@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<h2>Welcome {{current_customer.username}}</h2>
-<h3>{% if current_customer.company %} {{current_customer.company}} {% else %} Please enter company details </h3>
+<h2>Welcome {{instance.first_name}}</h2>
+<form method="post" action=""> {% csrf_token %}
+{{ form.as_p }}
+<div>
+    <button type="submit">Submit</button>
+</div>
+</form>
+<h3>{% if instance.company %} {{instance.company}} {% else %} Please enter company details </h3>
 <form method="get" action=''>
     <div>
         <input type="search" id="q" placeholder="Enter company number" name="q" value="">
