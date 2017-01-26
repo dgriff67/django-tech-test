@@ -4,6 +4,9 @@ from django.contrib.auth.models import AbstractUser
 
 class Customer(AbstractUser):
     phone_number = models.CharField(max_length=100, null=True, blank=True)
+    confirmed_phone_number = models.BooleanField(default=False)
+
+    confirmed_name = models.BooleanField(default=False)
 
     company = models.ForeignKey(
         'Company', null=True
@@ -12,7 +15,9 @@ class Customer(AbstractUser):
     @property
     def profile_complete(self):
         return (
-            getattr(self.company, 'verified', False)
+            self.confirmed_name and
+            getattr(self.company, 'verified', False) and
+            self.confirmed_phone_number
         )
 
 
