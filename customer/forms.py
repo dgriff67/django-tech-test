@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Customer
+from .models import Customer, Company
 
 
 class ProfileForm(forms.ModelForm):
@@ -18,4 +18,15 @@ class ProfileForm(forms.ModelForm):
             "last_name",
             "phone_number",
             "email"
+        ]
+
+class CompanyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['business_sector'].required = True
+
+    class Meta:
+        model = Company
+        fields = [
+            "business_sector"
         ]
