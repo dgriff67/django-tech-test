@@ -2,7 +2,10 @@
 <html lang="en">
 <body>
 <h2>Welcome {{current_customer.first_name}}</h2>
-<h3>{% if current_customer.company %} {{current_customer.company}} {% else %} Please enter company details </h3>
+
+<h4>{% if current_customer.company %}
+        {{current_customer.company}}
+    {% else %} Please enter company number </h4>
 <form method="get" action=''>
     <div>
         <input type="search" id="q" placeholder="Enter company number" name="q" value="">
@@ -11,14 +14,14 @@
         <button type="submit">Submit</button>
     </div>
 </form>
-        <div>{% if message %} {{message}} </div>
-        <div> {% else %}
-            {{company_number}}<br>
-            {{title}}<br>
-                    {% for key, value in company_address.items %}
-                        {{key}}: {{value}}<br>
-                    {% endfor %}
-        <div>{% endif %}
+    {% endif %}
+    {% if company_number %}
+        {{company_number}}<br>
+        {{title}}<br>
+            {% for key, value in company_address.items %}
+                {{key}}: {{value}}<br>
+            {% endfor %}
+        <div>
         <form method="post" action=""> {% csrf_token %}
             <input type="hidden" name="company_number" value='{{ company_number }}'>
             <div>
