@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
-from .models import Customer, Company
-from .forms import ProfileForm
+from .models import Customer, Company, Address
+from .forms import ProfileForm, CompanyForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 import chwrapper
@@ -32,37 +32,48 @@ def company(request):
     if request.method == 'POST':
         query = request.POST.get('company_number')
         if query:
+            # business_sector = request.POST.get('business_sector')
+            # print(business_sector)
             response = search_client.search_companies(query)
             response_json = response.json()
             if response_json['total_results'] == 0:
                 # message = 'Something has gone wrong' + company_number
                 return render(request, 'customer/company.html', context)
             else:
-                company_dict = response_json['items'][0]['address']
-                company_dict['title'] = response_json['items'][0]['title']
-                company_dict['company_number'] = response_json['items'][0]['company_number']
-                c = Company(**company_dict)
-                c.save()
-                current_customer.company = c
+                address_dict = response_json['items'][0]['address']
+                address = Address(**address_dict)
+                address.save()
+                company = Company()
+                company.address = address
+                company.title = response_json['items'][0]['title']
+                company.company_number = response_json['items'][0]['company_number']
+                company.save()
+                current_customer.company = company
                 current_customer.save()
-                context['company_dict'] = company_dict
+                context['address_dict'] = address_dict
+                context['company_number'] = company.company_number
+                context['title'] = company.title
                 # message = 'Company confirmed'
                 return render(request, 'customer/company.html', context)
-        else: #we just landed as POST with POST.get('company_number') empty, render regular form
+        else: #POST.get('company_number') empty, render regular form
             return render(request, 'customer/company.html', context)
+    # request.method == 'GET':
     query = request.GET.get("q")
     if query:
-        # search_term = request.POST.get("q", "")
         response = search_client.search_companies(query)
         response_json = response.json()
         if response_json['total_results'] == 0:
             message = 'No results'
-            return render(request, 'customer/company.html', {'current_customer':current_customer, 'message': message})
+            return render(request, 'customer/company.html', context)
         elif response_json['total_results'] > 0:
             company_address = response_json['items'][0]['address']
             title = response_json['items'][0]['title']
             company_number = response_json['items'][0]['company_number']
-            context.update({'title': title, 'company_number': company_number, 'company_address': company_address})
+            context.update({
+                'title': title,
+                'company_number': company_number,
+                'company_address': company_address,
+            })
             return render(request, 'customer/company.html', context)
     else:
         return render(request, 'customer/company.html', context)
