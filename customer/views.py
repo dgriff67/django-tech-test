@@ -1,12 +1,26 @@
 from django.shortcuts import render
 from django.conf import settings
 from .models import Customer, Company
+from .forms import ProfileForm
 from django.http import HttpResponse
 import chwrapper
 
 # Create your views here.
 def profile(request):
-    current_customer = request.user
+    instance = request.user
+    form = ProfileForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.confirmed_phone_number = True
+        instance.confirmed_name = True
+        instance.save()
+
+    context = {
+        "form": form,
+        "instance": instance
+    }
+    return render(request, 'customer/profile.html', context)
+    """current_customer = request.user
     search_client = chwrapper.Search(settings.ACCESS_TOKEN)
     if request.method == 'GET':
         query = request.GET.get("q")
@@ -24,8 +38,9 @@ def profile(request):
                 return render(request, 'customer/profile.html', {'current_customer':current_customer, 'title': title, 'company_number': company_number, 'company_address': company_address})
 
         else:
-            return render(request, 'customer/profile.html', {'current_customer':current_customer})
-    else: #request.method == 'POST'
+            # return render(request, 'customer/profile.html', {'current_customer':current_customer})
+            return render(request, 'customer/profile.html', context)"""
+    """else: #request.method == 'POST'
         query = request.POST.get('company_number')
         response = search_client.search_companies(query)
         response_json = response.json()
@@ -41,4 +56,4 @@ def profile(request):
             current_customer.company = c
             current_customer.save()
             message = 'Company confirmed'
-            return render(request, 'customer/profile.html', {'current_customer':current_customer, 'message': message, 'company_dict': company_dict})
+            return render(request, 'customer/profile.html', {'current_customer':current_customer, 'message': message, 'company_dict': company_dict})"""
