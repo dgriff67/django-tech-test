@@ -72,7 +72,7 @@ def company(request):
             message = 'No results'
             return render(request, 'customer/company.html', context)
         elif response_json['total_results'] > 0:
-            company_address = response_json['items'][0]['address']
+            company_address = Address(**response_json['items'][0]['address'])
             title = response_json['items'][0]['title']
             company_number = response_json['items'][0]['company_number']
             context.update({
