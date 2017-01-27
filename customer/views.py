@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.conf import settings
 from .models import Customer, Company, Address
 from .forms import ProfileForm, CompanyForm
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 import chwrapper
 
 # Create your views here.
+@login_required
 def profile(request):
     instance = request.user
     form = ProfileForm(request.POST or None, instance=instance)
@@ -23,6 +25,7 @@ def profile(request):
     }
     return render(request, 'customer/profile.html', context)
 
+@login_required
 def company(request):
     current_customer = request.user
     context = {
