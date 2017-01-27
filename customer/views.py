@@ -28,6 +28,9 @@ def profile(request):
 @login_required
 def company(request):
     current_customer = request.user
+    if (current_customer.confirmed_name is False) or (current_customer.confirmed_phone_number is False):
+        return HttpResponseRedirect(reverse('profile'))
+
     context = {
         'current_customer': current_customer,
     }
