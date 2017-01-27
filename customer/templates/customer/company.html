@@ -18,9 +18,7 @@
     {% if company_number %}
         {{company_number}}<br>
         {{title}}<br>
-            {% for key, value in company_address.items %}
-                {{key}}: {{value}}<br>
-            {% endfor %}
+            {{company_address}}
         <div>
         <form method="post" action=""> {% csrf_token %}
             <input type="hidden" name="company_number" value='{{ company_number }}'>
