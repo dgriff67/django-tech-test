@@ -19,14 +19,3 @@ class ProfileForm(forms.ModelForm):
             "phone_number",
             "email"
         ]
-
-class CompanyForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['business_sector'].required = True
-
-    class Meta:
-        model = Company
-        fields = [
-            "business_sector"
-        ]
