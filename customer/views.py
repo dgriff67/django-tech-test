@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
+from django.contrib import messages
 from .models import Customer, Company, Address
 from .forms import ProfileForm, CompanyForm
 from django.contrib.auth.decorators import login_required
@@ -17,6 +18,7 @@ def profile(request):
         instance.confirmed_phone_number = True
         instance.confirmed_name = True
         instance.save()
+        messages.success(request, "Sucessfully saved customer details")
         return HttpResponseRedirect(reverse('company'))
 
     context = {
@@ -43,7 +45,7 @@ def company(request):
             response = search_client.search_companies(query)
             response_json = response.json()
             if response_json['total_results'] == 0:
-                # message = 'Something has gone wrong' + company_number
+                messages.error(request, "No results returned")
                 return render(request, 'customer/company.html', context)
             else:
                 address_dict = response_json['items'][0]['address']
@@ -59,7 +61,7 @@ def company(request):
                 context['address_dict'] = address_dict
                 context['company_number'] = company.company_number
                 context['title'] = company.title
-                # message = 'Company confirmed'
+                messages.success(request, "Successfully confirmed company details")
                 return render(request, 'customer/company.html', context)
         else: #POST.get('company_number') empty, render regular form
             return render(request, 'customer/company.html', context)
@@ -69,7 +71,7 @@ def company(request):
         response = search_client.search_companies(query)
         response_json = response.json()
         if response_json['total_results'] == 0:
-            message = 'No results'
+            messages.error(request, "No results returned")
             return render(request, 'customer/company.html', context)
         elif response_json['total_results'] > 0:
             company_address = Address(**response_json['items'][0]['address'])
