@@ -34,6 +34,12 @@
             {{company_address}}
         <div>
         <form method="post" action=""> {% csrf_token %}
+            <select name="business_sector">
+                <option value="RETAIL">Retail</option>
+                <option value="PROFESSIONAL_SERVICES">Professional Services</option>
+                <option value="FOOD_AND_DRINK">Food & Drink</option>
+                <option value="ENTERTAINMENT">Entertainment</option>
+            </select>
             <input type="hidden" name="company_number" value='{{ company_number }}'>
             <div>
                 <button type="submit">Confirm</button>
