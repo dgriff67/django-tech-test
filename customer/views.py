@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.contrib import messages
 from .models import Customer, Company, Address
-from .forms import ProfileForm, CompanyForm
+from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -39,6 +39,7 @@ def company(request):
     search_client = chwrapper.Search(settings.ACCESS_TOKEN)
     if request.method == 'POST':
         query = request.POST.get('company_number')
+        business_sector = request.POST.get('business_sector')
         if query:
             # business_sector = request.POST.get('business_sector')
             # print(business_sector)
@@ -55,6 +56,8 @@ def company(request):
                 company.address = address
                 company.title = response_json['items'][0]['title']
                 company.company_number = response_json['items'][0]['company_number']
+                company.verified = True
+                company.business_sector = business_sector
                 company.save()
                 current_customer.company = company
                 current_customer.save()
