@@ -21,6 +21,7 @@ def create(request):
         instance = form.save(commit=False)
         instance.customer = current_customer
         instance.save()
+        messages.success(request, "Successfully created loan application")
         return HttpResponse('Success')
 
     context = {
