@@ -18,7 +18,7 @@
 <h4>{% if current_customer.company %}
         {{current_customer.company}}
     {% else %} Please enter company number </h4>
-<form method="get" action=''>
+<form method="post" action=''>{% csrf_token %}
     <div>
         <input type="search" id="q" placeholder="Enter company number" name="q" value="">
     </div>
@@ -28,10 +28,6 @@
     </div>
 </form>
     {% endif %}
-    {% if company_number %}
-        {{company_number}}<br>
-        {{title}}<br>
-            {{company_address}}
         <div>
         <form method="post" action=""> {% csrf_token %}
             <select name="business_sector">
@@ -40,11 +36,17 @@
                 <option value="FOOD_AND_DRINK">Food & Drink</option>
                 <option value="ENTERTAINMENT">Entertainment</option>
             </select>
+            <br>
             <input type="hidden" name="company_number" value='{{ company_number }}'>
+                {{company_number}} : {{title}} : {{company_address}} <br>
             <div>
                 <button type="submit">Confirm</button>
             </div>
         </form>
-        {% endif %}
+
+
+</div>
+            <input type="hidden" name="company_number" value='{{ company_number }}'>
+
 </body>
 </html>
